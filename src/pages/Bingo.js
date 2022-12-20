@@ -238,7 +238,7 @@ function Bingo() {
     <div className="h-screen w-full ">
       {bingo && modal && (
         <div className="fixed m-auto z-50 p-4 overflow-y-auto md:inset-0 h-full flex justify-center items-center bg-black/20">
-          <div className="relative w-full h-full max-w-md h-auto">
+          <div className="relative w-full h-auto max-w-md">
             <div className="bg-white rounded-lg shadow dark:bg-gray-700">
               <button
                 type="button"
@@ -364,7 +364,7 @@ function Bingo() {
           </div>
         </div>
       </div>
-      <table className="mx-auto bg-white table-fixed md:[&_td]:w-24 md:[&_td]:h-24 [&_td]:w-16 [&_td]:h-16 [&_td]:border-2 [&_td]:border-black [&_td]:text-center">
+      <table className="mx-auto bg-white md:[&_td]:w-24 md:[&_td]:h-24 [&_td]:w-16 [&_td]:h-16 [&_td]:border-2 [&_td]:border-black [&_td]:text-center">
         <tbody>
           <tr>
             {bingoArray.map((letter, i) => {
