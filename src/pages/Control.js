@@ -1,45 +1,41 @@
 import React, { useState } from "react";
-import { useSpring, animated } from "react-spring";
 import { FaCat } from "react-icons/fa";
 
 const DEFAULT_NUM = 101;
+const MAX_NUM = 100;
 
 function Control() {
   const [rndNum, setRndNum] = useState(DEFAULT_NUM);
   const [numbers, setNumbers] = useState([]);
   const [isRnd, setIsRnd] = useState(false);
-  const showNum = useSpring({
-    from: { val: 0 },
-    to: { val: rndNum },
-    config: {
-      friction: 240,
-      tension: 200,
-      duration: 2000,
-    },
-  });
-
-  function firstRandom() {
-    setRndNum(randomNumber());
-  }
+  const [showNum, setShowNum] = useState(randomNumber());
 
   function handleOnRandomClick() {
     if (isRnd) return;
 
-    if (numbers.length === 100) {
-      alert("Randomized 100 numbers!");
+    if (numbers.length === MAX_NUM) {
+      alert(`Randomized ${MAX_NUM} numbers!`);
       return;
     }
-    if (rndNum !== DEFAULT_NUM) setNumbers([...numbers, rndNum]);
 
-    let num;
-    do {
-      num = randomNumber();
-    } while (numbers.includes(num));
-    setRndNum(num);
     setIsRnd(true);
+    let nextValue;
+    do {
+      nextValue = randomNumber();
+    } while (numbers.includes(nextValue));
+
+    setRndNum(nextValue);
+
+    const random = setInterval(() => {
+      setShowNum(randomNumber());
+    }, 50);
+
     setTimeout(() => {
+      clearInterval(random);
+      setShowNum(nextValue);
+      setNumbers(() => [...numbers, nextValue]);
       setIsRnd(false);
-    }, 2000);
+    }, 2500);
   }
 
   function resetNumber() {
@@ -48,46 +44,35 @@ function Control() {
   }
 
   return (
-    <div className="text-center text-xl flex flex-col gap-y-8 max-w-4xl justify-center items-center h-screen mx-auto">
-      <FaCat />
-      <div className="text-9xl font-bold ">
-        {rndNum !== DEFAULT_NUM ? (
-          <animated.div
-            className={`${
-              isRnd
-                ? "text-black animate-none transition-all ease-in-out duration-700"
-                : "animate-bounce text-red-300 transition-all ease-in-out duration-700"
-            }`}
-          >
-            {showNum.val.to((val) => Math.floor(val))}
-          </animated.div>
-        ) : (
-          <div>-</div>
-        )}
-      </div>
-      <Button
-        className="hover:bg-black/10"
-        onClick={rndNum !== DEFAULT_NUM ? handleOnRandomClick : firstRandom}
-        label="Random Number"
-      />
-      <div className="font-bold">Randomized Number:</div>
-      <div className="max-w-2xl overflow-ellipsis h-36 leading-loose">
-        {numbers.length
-          ? numbers.map((number, index) => (index ? ", " : "") + number)
-          : "None"}
-      </div>
-      <Button
-        className="hover:bg-red-200/90"
-        onClick={resetNumber}
-        label="Reset Number"
-      />
+    <div className="h-screen w-screen bg-[#fbebe1]">
+      <main className="text-center text-xl flex flex-col gap-y-8 max-w-4xl h-full justify-center items-center mx-auto">
+        {/* <FaCat /> */}
+        <div
+          className={`text-[16rem] font-bold leading-none
+${
+  isRnd || rndNum === DEFAULT_NUM
+    ? "animate-none text-black transition-all duration-500 ease-out"
+    : "animate-bounce text-[#cd3357] transition-all duration-500 ease-in"
+}`}
+        >
+          {showNum}
+        </div>
+        <Button onClick={handleOnRandomClick} label="Random Number" />
+        <div className="font-bold text-4xl">Randomized Number:</div>
+        <div className="max-w-2xl overflow-ellipsis h-40 text-3xl leading-loose">
+          {numbers.length
+            ? numbers.map((number, index) => (index ? ", " : "") + number)
+            : "None"}
+        </div>
+        <Button onClick={resetNumber} label="Reset Number" />
+      </main>
     </div>
   );
 }
 
-const Button = ({ className, onClick, label }) => (
+const Button = ({ onClick, label }) => (
   <button
-    className={`border-2 px-6 py-3 rounded-lg shadow-md focus:ring-0 focus:outline-none hover:bg-black/10 ${className}`}
+    className="border-2 px-6 py-3 rounded-lg shadow-md focus:ring-0 focus:outline-none font-bold text-[#113621] hover:border-[#eaa15a] bg-[#fbebe1]"
     onClick={onClick}
   >
     {label}
