@@ -237,9 +237,9 @@ function Bingo() {
   return (
     <div className="h-screen w-full ">
       {bingo && modal && (
-        <div className="fixed top-0  mx-auto z-50  p-4 overflow-y-auto md:inset-0 h-modal md:h-full">
-          <div className="relative w-full h-full max-w-md md:h-auto">
-            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div className="fixed m-auto z-50 p-4 overflow-y-auto md:inset-0 h-full flex justify-center items-center bg-black/20">
+          <div className="relative w-full h-auto max-w-md">
+            <div className="bg-white rounded-lg shadow dark:bg-gray-700">
               <button
                 type="button"
                 className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
@@ -364,13 +364,13 @@ function Bingo() {
           </div>
         </div>
       </div>
-      <table className="mx-auto bg-white">
+      <table className="mx-auto bg-white md:[&_td]:w-24 md:[&_td]:h-24 [&_td]:w-16 [&_td]:h-16 [&_td]:border-2 [&_td]:border-black [&_td]:text-center">
         <tbody>
           <tr>
             {bingoArray.map((letter, i) => {
               return (
                 <td
-                  className="text-4xl font-bold text-center w-16 h-16 border-2 text-white border-black bg-pink-600"
+                  className="text-4xl font-bold bg-pink-600 text-white"
                   key={i}
                 >
                   {letter}
@@ -393,9 +393,7 @@ function Bingo() {
                           ? " bg-yell "
                           : isSelected
                           ? " rounded-full bg-yell "
-                          : " bg-white") +
-                        (isCorner ? " " : "") +
-                        " text-center w-16 h-16 border-2 border-black "
+                          : " bg-white") + (isCorner ? " " : "")
                       }
                       onClick={() => {
                         !isFree
