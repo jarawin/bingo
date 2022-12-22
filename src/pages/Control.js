@@ -3,6 +3,7 @@ import { FaCat } from "react-icons/fa";
 
 const DEFAULT_NUM = 101;
 const MAX_NUM = 100;
+const INTERVAL = 2500;
 
 function Control() {
   const [rndNum, setRndNum] = useState(DEFAULT_NUM);
@@ -35,7 +36,7 @@ function Control() {
       setShowNum(nextValue);
       setNumbers(() => [...numbers, nextValue]);
       setIsRnd(false);
-    }, 2500);
+    }, INTERVAL);
   }
 
   function resetNumber() {
@@ -44,8 +45,8 @@ function Control() {
   }
 
   return (
-    <div className="h-screen w-screen bg-[#fbebe1]">
-      <main className="text-center text-xl flex flex-col gap-y-8 max-w-4xl h-full justify-center items-center mx-auto">
+    <div className="min-h-screen bg-[#fbebe1] flex">
+      <main className="text-center text-xl flex flex-col gap-y-8 max-w-4xl justify-center items-center m-auto">
         {/* <FaCat /> */}
         <div
           className={`text-[16rem] font-bold leading-none
@@ -59,7 +60,7 @@ ${
         </div>
         <Button onClick={handleOnRandomClick} label="Random Number" />
         <div className="font-bold text-4xl">Randomized Number:</div>
-        <div className="max-w-2xl overflow-ellipsis h-40 text-3xl leading-loose">
+        <div className="max-w-2xl h-40 text-3xl leading-loose overflow-y-auto">
           {numbers.length
             ? numbers.map((number, index) => (index ? ", " : "") + number)
             : "None"}
