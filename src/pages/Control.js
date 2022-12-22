@@ -53,7 +53,7 @@ function Control() {
 ${
   isRnd || rndNum === DEFAULT_NUM
     ? "animate-none text-black transition-colors duration-500 ease-out pt-0"
-    : "motion-safe:animate-bounce text-[#cd3357] transition-colors duration-500 ease-in pt-52"
+    : "animate-bounce text-[#cd3357] transition-colors duration-500 ease-in pt-52"
 }
 }`}
       >
