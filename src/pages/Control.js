@@ -34,7 +34,7 @@ function Control() {
     setTimeout(() => {
       clearInterval(random);
       setShowNum(nextValue);
-      setNumbers(() => [...numbers, nextValue]);
+      setNumbers(() => [nextValue, ...numbers]);
       setIsRnd(false);
     }, INTERVAL);
   }
@@ -45,11 +45,11 @@ function Control() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fbebe1] flex">
-      <main className="text-center text-xl flex flex-col gap-y-8 max-w-4xl justify-center items-center m-auto">
+    <div className="min-h-screen bg-[#fbebe1] grid grid-cols-3 py-28 px-4">
+      <main className="text-center text-xl flex flex-col justify-center items-center m-auto h-full col-span-2">
         {/* <FaCat /> */}
         <div
-          className={`text-[16rem] font-bold leading-none
+          className={`text-[48rem] font-bold leading-none flex-grow
 ${
   isRnd || rndNum === DEFAULT_NUM
     ? "animate-none text-black transition-all duration-500 ease-out"
@@ -59,13 +59,24 @@ ${
           {showNum}
         </div>
         <Button onClick={handleOnRandomClick} label="Random Number" />
-        <div className="font-bold text-4xl">Randomized Number:</div>
-        <div className="max-w-2xl h-40 text-3xl leading-loose overflow-y-auto">
-          {numbers.length
-            ? numbers.map((number, index) => (index ? ", " : "") + number)
-            : "None"}
-        </div>
+      </main>
+      <main className="text-center flex flex-col justify-center items-center">
         <Button onClick={resetNumber} label="Reset Number" />
+        <div className="">
+          <div
+            className={`text-7xl font-bold my-12 ${
+              numbers.length ? "animate-pulse" : "animate-none"
+            }`}
+          >
+            Latest: {numbers.length ? numbers[0] : "None"}
+          </div>
+          <div className="font-bold text-5xl">Randomized:</div>
+          <div className="max-w-2xl text-6xl leading-loose overflow-y-auto h-[36rem]">
+            {numbers.length
+              ? numbers.map((number, index) => (index ? ", " : "") + number)
+              : "None"}
+          </div>
+        </div>
       </main>
     </div>
   );
@@ -73,7 +84,7 @@ ${
 
 const Button = ({ onClick, label }) => (
   <button
-    className="border-2 px-6 py-3 rounded-lg shadow-md focus:ring-0 focus:outline-none font-bold text-[#113621] hover:border-[#eaa15a] bg-[#fbebe1]"
+    className="border-2 px-6 py-3 rounded-lg shadow-md focus:ring-0 focus:outline-none font-bold text-[#113621] hover:border-[#eaa15a] bg-[#fbebe1] flex-grow-0"
     onClick={onClick}
   >
     {label}
