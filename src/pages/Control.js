@@ -45,38 +45,39 @@ function Control() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fbebe1] grid grid-cols-3 py-28 px-4">
-      <main className="text-center text-xl flex flex-col justify-center items-center m-auto h-full col-span-2">
-        {/* <FaCat /> */}
-        <div
-          className={`text-[48rem] font-bold leading-none flex-grow
+    <div className="min-h-screen bg-[#fbebe1] grid grid-cols-3 px-4">
+      {/* <FaCat /> */}
+
+      <main
+        className={`text-[50rem] font-bold leading-none col-span-2 flex justify-center items-center overflow-hidden
 ${
   isRnd || rndNum === DEFAULT_NUM
-    ? "animate-none text-black transition-all duration-500 ease-out"
-    : "animate-bounce text-[#cd3357] transition-all duration-500 ease-in"
+    ? "animate-none text-black transition-colors duration-500 ease-out pt-0"
+    : "motion-safe:animate-bounce text-[#cd3357] transition-colors duration-500 ease-in pt-52"
+}
 }`}
-        >
-          {showNum}
-        </div>
-        <Button onClick={handleOnRandomClick} label="Random Number" />
+      >
+        {showNum}
       </main>
+
       <main className="text-center flex flex-col justify-center items-center">
-        <Button onClick={resetNumber} label="Reset Number" />
+        <Button onClick={handleOnRandomClick} label="Random Number" />
         <div className="">
           <div
-            className={`text-7xl font-bold my-12 ${
+            className={`text-7xl font-bold my-12 text-[#113621] ${
               numbers.length ? "animate-pulse" : "animate-none"
             }`}
           >
             Latest: {numbers.length ? numbers[0] : "None"}
           </div>
           <div className="font-bold text-5xl">Randomized:</div>
-          <div className="max-w-2xl text-6xl leading-loose overflow-y-auto h-[36rem]">
+          <div className="w-[32rem] text-6xl leading-loose overflow-y-auto h-[36rem] bg-[#446759] text-white my-6 rounded-lg px-4 outline-4 outline outline-[#4b3030]">
             {numbers.length
               ? numbers.map((number, index) => (index ? ", " : "") + number)
               : "None"}
           </div>
         </div>
+        <Button onClick={resetNumber} label="Reset Number" />
       </main>
     </div>
   );
